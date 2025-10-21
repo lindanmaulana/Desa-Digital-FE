@@ -1,62 +1,91 @@
-import { Button, Card, CardBody, CardHeader, Form, Image, Input } from '@heroui/react';
+import { Button, Form, Image, Input } from '@heroui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
+import { SigninSchema, type TypeSigninSchema } from '../../../libs/validation/auth.validation';
+import { ContainerAuth } from '../components/AuthContainer';
 
 const SigninAuthPage = () => {
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm<TypeSigninSchema>({
+		resolver: zodResolver(SigninSchema),
+		defaultValues: {
+			email: '',
+			password: '',
+		},
+	});
+
+	const handleForm = handleSubmit((value) => {
+		console.log({ value });
+	});
+
 	return (
-		<Form className="flex items-center justify-center flex-1 p-[calc(((100%-1280px)/2)+75px)]">
-			<Card className="w-[486px] h-fit shrink-0 bg-white rounded-3xl p-8 space-y-8">
-				<CardHeader className="flex flex-col gap-8">
-					<Image alt="Desa Digital" src="/images/logos/logo-text.svg" width={300} className="w-full h-full" />
-					<div className="text-center space-y-1">
-						<h2 className="text-2xl font-semibold">Halo🙌🏻 , Selamat Datang!</h2>
-						<p className="text-gray-500">Silahkan masuk untuk melanjutkan</p>
-					</div>
-				</CardHeader>
-				<CardBody className="space-y-8">
-					<Input
-						isRequired
-						errorMessage=""
-						label="Email Address"
-						labelPlacement="outside"
-						name="email"
-						placeholder="Enter your email"
-						type="email"
-						startContent={<Image src="/images/icons/user-secondary-green.svg" />}
-						classNames={{
-							label: "text-desa-dark-green font-bold",
-							inputWrapper: [
-								'group-data-[focus-visible=true]:ring-0',
-								'group-data-[focus=true]:border-desa-dark-green',
-								'group-data-[focus=true]:border-2', //
-							],
-						}}
-						variant="flat"
-						size="lg"
-					/>
-					<Input
-						isRequired
-						errorMessage=""
-						label="Email Address"
-						labelPlacement="outside"
-						name="email"
-						placeholder="Enter your email"
-						type="email"
-						startContent={<Image src="/images/icons/key-secondary-green.svg" />}
-						classNames={{
-							inputWrapper: [
-								'group-data-[focus-visible=true]:ring-0',
-								'group-data-[focus=true]:border-desa-dark-green',
-								'group-data-[focus=true]:border-2', //
-							],
-						}}
-						variant="flat"
-						size="lg"
-					/>
-					<Button className="bg-desa-dark-green font-semibold text-white" size="lg">
-						Masuk
-					</Button>
-				</CardBody>
-			</Card>
-		</Form>
+		<ContainerAuth title="Halo🙌🏻 , Selamat Datang!" message="Silahkan masuk untuk melanjutkan">
+			<Form onSubmit={handleForm} className="space-y-6">
+				<Controller
+					name="email"
+					control={control}
+					render={({ field }) => (
+						<Input
+							{...field}
+							isRequired
+							isInvalid={!!errors.email}
+							errorMessage={errors.email?.message}
+							label="Email Address"
+							labelPlacement="outside"
+							name="email"
+							placeholder="Masukan Email Kamu"
+							type="email"
+							startContent={<Image src="/images/icons/user-secondary-green.svg" />}
+							classNames={{
+								label: '!text-desa-dark-green font-bold',
+								inputWrapper: [
+									'group-data-[focus-visible=true]:ring-0',
+									'group-data-[focus=true]:border-desa-dark-green',
+									'group-data-[focus=true]:border-2', //
+								],
+							}}
+							variant="flat"
+							size="lg"
+						/>
+					)}
+				/>
+
+				<Controller
+					name="password"
+					control={control}
+					render={({ field }) => (
+						<Input
+							{...field}
+							isRequired
+							isInvalid={!!errors.password}
+							errorMessage={errors.password?.message}
+							label="Password"
+							labelPlacement="outside"
+							name="password"
+							placeholder="Ketik Password Kamu"
+							type="password"
+							startContent={<Image src="/images/icons/key-secondary-green.svg" />}
+							classNames={{
+								label: "!text-desa-dark-green font-bold",
+								inputWrapper: [
+									'group-data-[focus-visible=true]:ring-0',
+									'group-data-[focus=true]:border-desa-dark-green',
+									'group-data-[focus=true]:border-2', //
+								],
+							}}
+							variant="flat"
+							size="lg"
+						/>
+					)}
+				/>
+				<Button type="submit" className="w-full font-semibold text-white bg-desa-dark-green" size="lg">
+					Masuk
+				</Button>
+			</Form>
+		</ContainerAuth>
 	);
 };
 
