@@ -2,18 +2,18 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User2 } from 'lucide-react';
+import { LockKeyhole } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { AuthSchema, type TypeSigninSchema } from '../../../libs/validation/auth.validation';
-import { ContainerAuth } from '../components/AuthContainer';
 import { Link } from 'react-router';
+import { AuthSchema, type TypeResetPassword } from '../../../libs/validation/auth.validation';
+import { ContainerAuth } from '../components/AuthContainer';
 
-const SigninAuthPage = () => {
-	const form = useForm<TypeSigninSchema>({
-		resolver: zodResolver(AuthSchema.SIGNINSCHEMA),
+const ResetPasswordAuthPage = () => {
+	const form = useForm<TypeResetPassword>({
+		resolver: zodResolver(AuthSchema.RESETPASSWORD),
 		defaultValues: {
-			email: '',
-			password: '',
+			password: "",
+			confirm_password: ""
 		},
 	});
 
@@ -24,20 +24,20 @@ const SigninAuthPage = () => {
 	});
 
 	return (
-		<ContainerAuth title="Halo🙌🏻 , Selamat Datang!" message="Silahkan masuk untuk melanjutkan">
+		<ContainerAuth title="Reset🗝️ , Kata Sandi!" message="Identitas Anda telah diverifikasi! Tetapkan kata sandi baru Anda">
 			<Form {...form}>
 				<form onSubmit={handleForm} className='space-y-6'>
 					<FormField
-						name="email"
+						name="password"
 						control={control}
 						render={({ field }) => (
 							<FormItem className='space-y-2'>
-								<FormLabel className='text-base font-medium text-village-secondary'>Email Address</FormLabel>
+								<FormLabel className='text-base font-medium text-village-secondary'>New Password</FormLabel>
 								<FormControl>
 									<InputGroup className='border-none h-14 ring-village-dark-green rounded-2xl'>
-										<InputGroupInput {...field} placeholder='Masukan Email Kamu' className='!text-lg placeholder:text-base placeholder:text-village-secondary placeholder:font-medium' />
+										<InputGroupInput type='password' {...field} placeholder='Masukan Email Kamu' className='!text-lg placeholder:text-base placeholder:text-village-secondary placeholder:font-medium' />
 										<InputGroupAddon>
-											<User2 className='size-6' />
+											<LockKeyhole className='size-6' />
 										</InputGroupAddon>
 									</InputGroup>
 								</FormControl>
@@ -47,16 +47,16 @@ const SigninAuthPage = () => {
 					/>
 
 					<FormField
-						name="password"
+						name="confirm_password"
 						control={control}
 						render={({ field }) => (
 							<FormItem className='space-y-2'>
-								<FormLabel className='text-base font-medium text-village-secondary'>Password</FormLabel>
+								<FormLabel className='text-base font-medium text-village-secondary'>Confirm Password</FormLabel>
 								<FormControl>
 									<InputGroup className='border-none h-14 ring-village-dark-green rounded-2xl'>
 										<InputGroupInput type='password' {...field} placeholder='Ketik Password Kamu' className='!text-lg placeholder:text-base placeholder:text-village-secondary placeholder:font-medium' />
 										<InputGroupAddon>
-											<img src="/images/icons/key-secondary-green.svg" alt="key-secondary"/>
+											<LockKeyhole className='size-6' />
 										</InputGroupAddon>
 									</InputGroup>
 								</FormControl>
@@ -77,4 +77,4 @@ const SigninAuthPage = () => {
 	);
 };
 
-export default SigninAuthPage;
+export default ResetPasswordAuthPage;

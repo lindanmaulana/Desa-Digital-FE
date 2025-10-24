@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router'
 
-const GuestRoute = () => {
+export const GuestRoute = () => {
   const location = useLocation()
   console.log({location})
 
@@ -8,5 +8,3 @@ const GuestRoute = () => {
 
   return <Outlet />
 }
-
-export default GuestRoute

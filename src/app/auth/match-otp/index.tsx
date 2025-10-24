@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { ContainerAuth } from '../components/AuthContainer';
 import { useGetUsermail } from '../hooks/useGetUserMail';
 
-const VerifyOtpAuthPage = () => {
+const MatchOtpAuthPage = () => {
 	const emailUser = useGetUsermail();
 
 	const form = useForm<TypeVerifyAccountSchema>({
@@ -83,4 +83,4 @@ const VerifyOtpAuthPage = () => {
 	);
 };
 
-export default VerifyOtpAuthPage;
+export default MatchOtpAuthPage;
