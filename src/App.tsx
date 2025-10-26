@@ -10,8 +10,10 @@ import { AuthRoute } from './routes/AuthRoute';
 import { VerifyAccountAuthRoute } from './routes/VerifyAccountAuthRoute';
 import { StepGuardAuthRoute } from './routes/StepGuardAuthRoute';
 import MatchOtpAuthPage from './app/auth/match-otp';
-import { useAuth } from './libs/context/useAuth';
+import { useAuth } from './lib/context/useAuth';
 import ResetPasswordAuthPage from './app/auth/reset-password';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from './components/ui/sonner';
 
 function App() {
 	const [client] = useState(
@@ -25,7 +27,7 @@ function App() {
 			})
 	);
 
-	const {emailSubmitted, otpVerified} = useAuth()
+	const { emailSubmitted, otpVerified } = useAuth();
 
 	return (
 		<QueryClientProvider client={client}>
@@ -44,16 +46,19 @@ function App() {
 							<Route path="forgot-password" element={<ForgotPasswordAuthPage />} />
 
 							<Route element={<StepGuardAuthRoute requiredCondition={emailSubmitted} redirectPath="/auth/signin" />}>
-								<Route path='match-otp' element={<MatchOtpAuthPage />} />
+								<Route path="match-otp" element={<MatchOtpAuthPage />} />
 							</Route>
 
-							<Route element={<StepGuardAuthRoute requiredCondition={otpVerified} redirectPath='/auth/match-otp' />}>
-								<Route path='reset-password' element={<ResetPasswordAuthPage />} />
+							<Route element={<StepGuardAuthRoute requiredCondition={otpVerified} redirectPath="/auth/match-otp" />}>
+								<Route path="reset-password" element={<ResetPasswordAuthPage />} />
 							</Route>
 						</Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>
+
+			<Toaster position="top-center" richColors />
+			{import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
 		</QueryClientProvider>
 	);
 }

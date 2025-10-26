@@ -1,7 +1,7 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { ContainerAuth } from '../components/AuthContainer';
 import { useForm } from 'react-hook-form';
-import { AuthSchema, type TypeForgotPasswordSchema } from '@/libs/validation/auth.validation';
+import { AuthSchema, type TypeForgotPasswordSchema } from '@/lib/validation/auth.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Mail } from 'lucide-react';
@@ -19,8 +19,8 @@ const ForgotPasswordAuthPage = () => {
 	const { handleSubmit, control } = form;
 
 	const handleForm = handleSubmit((value) => {
-		console.log({value})
-	})
+		console.log({ value });
+	});
 
 	return (
 		<ContainerAuth title="Lupa Kata Sandi" message="Masukan alamat email yang terkait dengan Akun anda untuk menerima tautan reset">

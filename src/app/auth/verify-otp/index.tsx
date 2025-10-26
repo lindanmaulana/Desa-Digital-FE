@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { InputGroup } from '@/components/ui/input-group';
 import { InputOTP, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
-import { AuthSchema, type TypeVerifyAccountSchema } from '@/libs/validation/auth.validation';
+import { AuthSchema, type TypeVerifyAccountSchema } from '@/lib/validation/auth.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { ContainerAuth } from '../components/AuthContainer';
@@ -35,7 +35,7 @@ const VerifyOtpAuthPage = () => {
 							control={control}
 							name="email"
 							render={({ field }) => (
-								<FormItem className='hidden'>
+								<FormItem className="hidden">
 									<FormControl>
 										<Input {...field} type="email" />
 									</FormControl>
