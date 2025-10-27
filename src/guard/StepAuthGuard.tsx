@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router"
 
-interface StepGuardAuthRouteProps {
+interface StepAuthGuardProps {
 	requiredCondition: boolean
 	redirectPath: string
 }
 
-export const StepGuardAuthRoute = ({requiredCondition, redirectPath}: StepGuardAuthRouteProps) => {
+export const StepAuthGuard = ({requiredCondition, redirectPath}: StepAuthGuardProps) => {
 
 	if (!requiredCondition) return <Navigate to={redirectPath} replace />
 

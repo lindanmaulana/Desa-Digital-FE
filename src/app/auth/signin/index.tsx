@@ -1,10 +1,13 @@
+import { customToastError, customToastSuccess } from '@/components/custom-toast';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { Spinner } from '@/components/ui/spinner';
 import { errorHandler } from '@/lib/helpers/error-handler.helper';
-import queries from '@/lib/queries';
-import services from '@/lib/services';
-import type { signinAuthRequest, signinAuthResponse } from '@/types/auth.types';
+import { authKeys } from '@/lib/queries/auth';
+import { signinAuthService } from '@/lib/services';
+import { useSessionStore } from '@/lib/stores/useSessionStore';
+import type { signinAuthRequest } from '@/types/auth.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { User2 } from 'lucide-react';
@@ -12,12 +15,10 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import { AuthSchema, type TypeSigninSchema } from '../../../lib/validation/auth.validation';
 import { ContainerAuth } from '../components/AuthContainer';
-import { toast } from 'sonner';
-import customToast from '@/components/custom-toast';
-import { Spinner } from '@/components/ui/spinner';
 
 const SigninAuthPage = () => {
 	const router = useNavigate();
+	const handleSetSession = useSessionStore((state) => state.setSessionUser)
 
 	const form = useForm<TypeSigninSchema>({
 		resolver: zodResolver(AuthSchema.SIGNINSCHEMA),
@@ -30,26 +31,24 @@ const SigninAuthPage = () => {
 	const { handleSubmit, control } = form;
 
 	const { mutate, isPending, reset } = useMutation({
-		mutationKey: queries.auth.authKeys.signin(),
-		mutationFn: (req: signinAuthRequest) => services.authService.signinAuthService(req),
+		mutationKey: authKeys.signin(),
+		mutationFn: (req: signinAuthRequest) => signinAuthService(req),
 	});
 
 	const handleForm = handleSubmit((value: signinAuthRequest) => {
 
 		mutate(value, {
 			onSuccess: (data) => {
-				console.log({data})
-				toast.success(data.message, {
-					className: 'bg-green-500',
-				});
-				
-				// router("/dashboard")
+				customToastSuccess(data.message)
+
+				handleSetSession(data.data)
+				router("/dashboard")
 			},
 
 			onError: (err) => {
 				const errorMessage = errorHandler(err);
 
-				customToast.CustomToastError(errorMessage);
+				customToastError(errorMessage);
 			},
 
 			onSettled: () => {

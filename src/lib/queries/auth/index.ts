@@ -1,5 +1,3 @@
-import { authKeys } from "./query-keys";
+import { authKeys } from './query-keys';
 
-export default {
-  authKeys
-}
+export { authKeys };

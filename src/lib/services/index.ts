@@ -1,5 +1,5 @@
-import authService from "./auth.service";
+import {signinAuthService} from "./auth.service";
 
-export default {
-  authService
+export {
+  signinAuthService
 }

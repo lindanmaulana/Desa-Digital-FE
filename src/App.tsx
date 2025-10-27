@@ -1,19 +1,20 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
-import AuthLayout from './app/auth/layout';
-import SigninAuthPage from './app/auth/signin';
-import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import VerifyOtpAuthPage from './app/auth/verify-otp';
-import ForgotPasswordAuthPage from './app/auth/forgot-password';
-import { GuestRoute } from './routes/GuestRoute';
-import { AuthRoute } from './routes/AuthRoute';
-import { VerifyAccountAuthRoute } from './routes/VerifyAccountAuthRoute';
-import { StepGuardAuthRoute } from './routes/StepGuardAuthRoute';
-import MatchOtpAuthPage from './app/auth/match-otp';
-import { useAuth } from './lib/context/useAuth';
-import ResetPasswordAuthPage from './app/auth/reset-password';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router';
+import ForgotPasswordAuthPage from './app/auth/forgot-password';
+import AuthLayout from './app/auth/layout';
+import MatchOtpAuthPage from './app/auth/match-otp';
+import ResetPasswordAuthPage from './app/auth/reset-password';
+import SigninAuthPage from './app/auth/signin';
+import VerifyOtpAuthPage from './app/auth/verify-otp';
 import { Toaster } from './components/ui/sonner';
+import { useGuardAuth } from './hooks/useGuardAuth';
+import {GuestGuard, AuthGuard, StepAuthGuard, VerifyAccountAuthGuard} from "./guard/index"
+import { DashboardGuard } from './guard/DashboardGuard';
+import DashboardLayout from './app/dashboard/layout';
+import DashboardPage from './app/dashboard';
+
 
 function App() {
 	const [client] = useState(
@@ -27,31 +28,34 @@ function App() {
 			})
 	);
 
-	const { emailSubmitted, otpVerified } = useAuth();
+
+	const {isEmailSubmit, isOtpVerified} = useGuardAuth()
 
 	return (
 		<QueryClientProvider client={client}>
 			<BrowserRouter>
 				<Routes>
-					<Route index element={<GuestRoute />} />
+					<Route index element={<GuestGuard />} />
 
-					<Route element={<AuthRoute />}>
+					<Route element={<AuthGuard />}>
 						<Route path="/auth/*" element={<AuthLayout />}>
 							<Route path="signin" element={<SigninAuthPage />} />
-
-							<Route element={<VerifyAccountAuthRoute />}>
+							<Route element={<VerifyAccountAuthGuard />}>
 								<Route path="verify-otp?" element={<VerifyOtpAuthPage />} />
 							</Route>
-
 							<Route path="forgot-password" element={<ForgotPasswordAuthPage />} />
-
-							<Route element={<StepGuardAuthRoute requiredCondition={emailSubmitted} redirectPath="/auth/signin" />}>
+							<Route element={<StepAuthGuard requiredCondition={isEmailSubmit} redirectPath="/auth/signin" />}>
 								<Route path="match-otp" element={<MatchOtpAuthPage />} />
 							</Route>
-
-							<Route element={<StepGuardAuthRoute requiredCondition={otpVerified} redirectPath="/auth/match-otp" />}>
+							<Route element={<StepAuthGuard requiredCondition={isOtpVerified} redirectPath="/auth/match-otp" />}>
 								<Route path="reset-password" element={<ResetPasswordAuthPage />} />
 							</Route>
+						</Route>
+					</Route>
+
+					<Route element={<DashboardGuard />}>
+						<Route path='/dashboard/*' element={<DashboardLayout />}>
+							<Route index element={<DashboardPage />} />
 						</Route>
 					</Route>
 				</Routes>
