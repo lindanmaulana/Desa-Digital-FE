@@ -3,32 +3,17 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { InputGroup } from '@/components/ui/input-group';
 import { InputOTP, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
-import { AuthSchema, type TypeVerifyAccountSchema } from '@/lib/validation/auth.validation';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { ContainerAuth } from '../components/AuthContainer';
-import { useGetUsermail } from '../hooks/useGetUserMail';
+import { Spinner } from '@/components/ui/spinner';
+import type { TypeVerifyAccountSchema } from '@/lib/validation/auth.validation';
+import type { AuthFormSubmissingProps } from '@/types/auth.types';
+import { ResendOtp } from '../ResendOtp';
 
-const VerifyOtpAuthPage = () => {
-	const emailUser = useGetUsermail();
 
-	const form = useForm<TypeVerifyAccountSchema>({
-		resolver: zodResolver(AuthSchema.VERIFYACCOUNTSCHEMA),
-		defaultValues: {
-			email: emailUser ?? '',
-			otp_code: '',
-		},
-	});
-
-	const { handleSubmit, control } = form;
-
-	const handleForm = handleSubmit((value) => {
-		console.log({ value });
-	});
+export const VerifyAccountAuthForm = ({formMethods, handleForm, isPending}: AuthFormSubmissingProps<TypeVerifyAccountSchema>) => {
+	const {control} = formMethods
 
 	return (
-		<ContainerAuth title="Verifikasi Kode OTP Anda" message="Masukan kode 6 digit yang baru saja kami kirimkan ke alamat email Anda">
-			<Form {...form}>
+			<Form {...formMethods}>
 				<form onSubmit={handleForm}>
 					<div className="flex flex-col items-center justify-center gap-10">
 						<FormField
@@ -70,17 +55,12 @@ const VerifyOtpAuthPage = () => {
 						/>
 						<div className="flex flex-col items-center w-full space-y-1">
 							<Button type="submit" className="w-[75%] py-6 bg-village-dark-green rounded-2xl text-base hover:bg-village-dark-green/80 cursor-pointer">
-								Verify
+								{isPending ? <Spinner /> : 'Verify'}
 							</Button>
-							<Button type="button" variant={'link'} size={'sm'} className="text-sm cursor-pointer text-village-dark-green">
-								Resend OTP
-							</Button>
+							<ResendOtp />
 						</div>
 					</div>
 				</form>
 			</Form>
-		</ContainerAuth>
-	);
-};
-
-export default VerifyOtpAuthPage;
+	)
+}

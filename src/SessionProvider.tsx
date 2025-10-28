@@ -8,7 +8,7 @@ interface SessionProviderProps {
 export const SessionProvider = ({children}: SessionProviderProps) => {
 	const session = useSessionStore((state) => state.session)
 
-	
+
 
 	return children
 }

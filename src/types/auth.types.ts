@@ -1,19 +1,4 @@
-export interface signinAuthRequest {
-  email: string;
-  password: string;
-}
-
-export interface signinAuthResponse {
-  email: string;
-  id: string;
-  is_active: boolean;
-  is_first_login: boolean;
-  name: string;
-  role: string;
-  created_at: string;
-  updated_at: string;
-}
-
+import type { FieldValues, Noop, UseFormReturn } from "react-hook-form";
 
 export interface Session {
   id: string;
@@ -24,4 +9,39 @@ export interface Session {
   is_first_login: boolean;
   created_at: string;
   updated_at: string;
+}
+
+export interface AuthFormSubmissingProps<T extends FieldValues> {
+  formMethods: UseFormReturn<T>
+  handleForm: Noop
+  isPending: boolean
+}
+
+export interface SigninAuthRequest {
+  email: string;
+  password: string;
+}
+
+export interface SigninAuthResponse {
+  email: string;
+  id: string;
+  is_active: boolean;
+  is_first_login: boolean;
+  name: string;
+  role: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface VerifyAccountRequest {
+  otp_code: string;
+}
+
+export interface ResendOtpRequest {
+  email: string;
+}
+
+export interface ResendOtpResponse {
+  email: string;
+  otp_last_sent_at: Date;
 }

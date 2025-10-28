@@ -21,4 +21,4 @@ const setToken = (token: string | null) => {
   }
 };
 
-export default { api, setContentType, setToken };
+export { api, setContentType, setToken };

@@ -1,5 +1,7 @@
-import {signinAuthService} from "./auth.service";
+import {signinAuthService, verifyAccountService, resendOtpService} from "./auth.service";
 
 export {
-  signinAuthService
+  signinAuthService,
+  verifyAccountService,
+  resendOtpService
 }

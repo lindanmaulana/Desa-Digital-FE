@@ -7,13 +7,13 @@ import AuthLayout from './app/auth/layout';
 import MatchOtpAuthPage from './app/auth/match-otp';
 import ResetPasswordAuthPage from './app/auth/reset-password';
 import SigninAuthPage from './app/auth/signin';
-import VerifyOtpAuthPage from './app/auth/verify-otp';
-import { Toaster } from './components/ui/sonner';
-import { useGuardAuth } from './hooks/useGuardAuth';
-import {GuestGuard, AuthGuard, StepAuthGuard, VerifyAccountAuthGuard} from "./guard/index"
-import { DashboardGuard } from './guard/DashboardGuard';
-import DashboardLayout from './app/dashboard/layout';
+import VerifyAccountAuthPage from './app/auth/verify-account';
 import DashboardPage from './app/dashboard';
+import DashboardLayout from './app/dashboard/layout';
+import { Toaster } from './components/ui/sonner';
+import { DashboardGuard } from './guard/DashboardGuard';
+import { AuthGuard, GuestGuard, StepAuthGuard, VerifyAccountAuthGuard } from "./guard/index";
+import { useGuardAuth } from './hooks/useGuardAuth';
 
 
 function App() {
@@ -41,11 +41,11 @@ function App() {
 						<Route path="/auth/*" element={<AuthLayout />}>
 							<Route path="signin" element={<SigninAuthPage />} />
 							<Route element={<VerifyAccountAuthGuard />}>
-								<Route path="verify-otp?" element={<VerifyOtpAuthPage />} />
+								<Route path="verify-account?" element={<VerifyAccountAuthPage />} />
 							</Route>
 							<Route path="forgot-password" element={<ForgotPasswordAuthPage />} />
 							<Route element={<StepAuthGuard requiredCondition={isEmailSubmit} redirectPath="/auth/signin" />}>
-								<Route path="match-otp" element={<MatchOtpAuthPage />} />
+								<Route path="verify-otp" element={<MatchOtpAuthPage />} />
 							</Route>
 							<Route element={<StepAuthGuard requiredCondition={isOtpVerified} redirectPath="/auth/match-otp" />}>
 								<Route path="reset-password" element={<ResetPasswordAuthPage />} />
