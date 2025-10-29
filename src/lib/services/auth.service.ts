@@ -20,7 +20,7 @@ export const signinAuthService = async (req: SigninAuthRequest): Promise< Respon
 
 export const verifyAccountService = async (req: VerifyAccountRequest): Promise<Response<UserResponse>> => {
   try {
-    const response = await api.post('/verify-account', req);
+    const response = await api.post('/auth/verify-account', req);
 
     return response.data;
   } catch (err) {
@@ -32,7 +32,7 @@ export const verifyAccountService = async (req: VerifyAccountRequest): Promise<R
 
 export const resendOtpService = async (req: ResendOtpRequest): Promise<Response<ResendOtpResponse>> => {
   try {
-    const response = await api.post("/resend-otp", req)
+    const response = await api.post("/auth/resend-otp", req)
 
     return response.data
   } catch (err) {

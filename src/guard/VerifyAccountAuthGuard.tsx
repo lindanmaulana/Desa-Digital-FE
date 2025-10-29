@@ -1,9 +1,9 @@
-import { Navigate, Outlet, useLocation } from "react-router"
+import { Navigate, Outlet, useSearchParams } from "react-router"
 
 export const VerifyAccountAuthGuard = () => {
-	const location = useLocation()
+	const [searchParams] = useSearchParams()
 
-	if (!location.search || !location.search.endsWith("@gmail.com")) return <Navigate to={"/auth/signin"} replace />
+	if (!searchParams.get("account") || !searchParams.get("account")?.toString().endsWith("@gmail.com")) return <Navigate to={"/auth/signin"} replace />
 
 	return <Outlet />
 }

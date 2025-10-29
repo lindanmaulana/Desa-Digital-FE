@@ -54,7 +54,7 @@ export const VerifyAccountAuthForm = ({formMethods, handleForm, isPending}: Auth
 							)}
 						/>
 						<div className="flex flex-col items-center w-full space-y-1">
-							<Button type="submit" className="w-[75%] py-6 bg-village-dark-green rounded-2xl text-base hover:bg-village-dark-green/80 cursor-pointer">
+							<Button type="submit" className="w-[75%] py-6 bg-village-dark-green rounded-2xl text-base hover:bg-village-dark-green/80 cursor-pointer" disabled={isPending}>
 								{isPending ? <Spinner /> : 'Verify'}
 							</Button>
 							<ResendOtp />

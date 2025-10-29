@@ -1,14 +1,12 @@
-import { useLocation } from "react-router"
+import { useSearchParams } from "react-router"
 
 export const useGetUsermail = () => {
-	const location = useLocation()
+  const [searchParams] = useSearchParams()
 
-	if (location.search) {
-		const params = new URLSearchParams(location.search)
+  const email = searchParams.get("account")
 
-		let emailUser: string = params && decodeURIComponent(params.toString())
-
-		if (emailUser.endsWith("=")) emailUser = emailUser.slice(0, -1)
+	if (email) {
+    const emailUser = email.toString()
 
 		return emailUser
 	}

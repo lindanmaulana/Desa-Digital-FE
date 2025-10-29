@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
 
 interface useCountDownProps {
-  start: boolean;
-  end: boolean;
-  time: number;
+  play: boolean;
+  count: number;
 }
 
-export const useCountDown = ({ start, end, time }: useCountDownProps): number => {
-  const [count, setCount] = useState<number>(time);
+export const useCountDown = ({ play, count }: useCountDownProps): number => {
+  const [countDown, setCountDown] = useState<number>(count);
+  
+  useEffect(() => {
+    if (play) setCountDown(count)
+  }, [play, count])
 
   useEffect(() => {
-    if (count <= 0) return;
+    if (!play || countDown <= 0) return;
 
-    if (start) {
       const timer = setInterval(() => {
-        setCount((prevCount) => prevCount - 1);
+        setCountDown((prevCount) => {
+          if (prevCount <= 1) return 0
 
-        if (end) return;
-        
+          return prevCount - 1
+        });
+
       }, 1000);
 
       return () => clearInterval(timer);
-    }
+  }, [play, countDown]);
 
-  }, [count, start, end]);
-
-  return count;
+  return countDown;
 };
