@@ -10,8 +10,12 @@ export class AuthSchema {
     email: z.email({error: "Email tidak valid"}).nonempty({error: "Email tidak boleh kosong"})
   })
 
+  static readonly RESENDVERIFYTOKEN = z.object({
+    email: z.email({error: "Email tidak valid"}).nonempty({error: "Email tidak boleh kosong"})
+  })
+
   static readonly VERIFYACCOUNTSCHEMA = z.object({
-    email: z.email({error: "Email tidak valid"}).nonempty({error: "Email tidak boleh kosong"}),
+    token: z.string().nonempty({error: "Token verifikaasi tidak boleh kosong"}),
     otp_code: z.string().min(6, "Kode OTP kurang dari 6 digit")
   })
 
@@ -27,6 +31,7 @@ export class AuthSchema {
 
 export type TypeSigninSchema = z.infer<typeof AuthSchema.SIGNINSCHEMA>;
 export type TypeResendOtpSchema = z.infer<typeof AuthSchema.RESENDOTP>
+export type TypeResendVerifyTokenSchema = z.infer<typeof AuthSchema.RESENDVERIFYTOKEN>
 export type TypeVerifyAccountSchema = z.infer<typeof AuthSchema.VERIFYACCOUNTSCHEMA>
 export type TypeForgotPasswordSchema = z.infer<typeof AuthSchema.FORGOTPASSWORD>
 export type TypeResetPassword = z.infer<typeof AuthSchema.RESETPASSWORD>

@@ -7,15 +7,15 @@ import { AuthSchema, type TypeVerifyAccountSchema } from '@/lib/validation/auth.
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { ContainerAuth } from '../components/AuthContainer';
-import { useGetUsermail } from '../hooks/useGetUserMail';
+import { useGetVerifyToken } from '../hooks/useGetVerifyToken';
 
 const MatchOtpAuthPage = () => {
-	const emailUser = useGetUsermail();
+	const tokenUser = useGetVerifyToken();
 
 	const form = useForm<TypeVerifyAccountSchema>({
 		resolver: zodResolver(AuthSchema.VERIFYACCOUNTSCHEMA),
 		defaultValues: {
-			email: emailUser ?? '',
+			token: tokenUser ?? '',
 			otp_code: '',
 		},
 	});
@@ -33,7 +33,7 @@ const MatchOtpAuthPage = () => {
 					<div className="flex flex-col items-center justify-center gap-10">
 						<FormField
 							control={control}
-							name="email"
+							name="token"
 							render={({ field }) => (
 								<FormItem className="hidden">
 									<FormControl>

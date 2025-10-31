@@ -6,12 +6,12 @@ import { authKeys } from '@/lib/queries/auth';
 import { resendOtpService } from '@/lib/services';
 import type { ResendOtpRequest } from '@/types/auth.types';
 import { useMutation } from '@tanstack/react-query';
-import { useGetUsermail } from '../../hooks/useGetUserMail';
 import { useCountDownTimer } from '../hooks/useCountDownTimer';
+import { useGetVerifyToken } from '../../hooks/useGetVerifyToken';
 
 export const ResendOtp = () => {
-	const email = useGetUsermail();
-	const {play, timer, handleSetCountDown} = useCountDownTimer()
+	const token = useGetVerifyToken();
+	const { play, timer, handleSetCountDown } = useCountDownTimer();
 
 	const { mutate, isPending } = useMutation({
 		mutationKey: authKeys.resend_otp(),
@@ -19,11 +19,11 @@ export const ResendOtp = () => {
 	});
 
 	const handleResendOtp = () => {
-		const dataEmail = {
-			email: email ?? '',
+		const datatoken = {
+			token: token ?? '',
 		};
 
-		mutate(dataEmail, {
+		mutate(datatoken, {
 			onSuccess: (data) => {
 				customToastSuccess(data.message);
 				handleSetCountDown(data.data.otp_expiry_seconds);
@@ -37,9 +37,13 @@ export const ResendOtp = () => {
 		});
 	};
 
+	const isDisabled = play || isPending;
+
 	return (
-		<Button type="button" onClick={handleResendOtp} variant={'link'} size={'sm'} disabled={play} className={`relative text-sm cursor-pointer text-village-dark-green `}>
-			{isPending ? <Spinner /> : <span className={`${play && "opacity-30"}`}>Resend OTP</span>}
+		<Button type="button" onClick={handleResendOtp} variant={'link'} size={'sm'} disabled={play || isPending} className={`relative text-sm cursor-pointer text-village-dark-green `}>
+			{isPending && <Spinner />}
+
+			{!isDisabled && <span className={`${play && 'opacity-30'}`}>Resend OTP</span>}
 
 			{play && <span className="absolute inset-0 flex items-center justify-center">Kode baru dapat diminta dalam {timer}</span>}
 		</Button>

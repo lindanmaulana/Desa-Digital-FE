@@ -18,11 +18,11 @@ export const VerifyAccountAuthForm = ({formMethods, handleForm, isPending}: Auth
 					<div className="flex flex-col items-center justify-center gap-10">
 						<FormField
 							control={control}
-							name="email"
+							name="token"
 							render={({ field }) => (
 								<FormItem className="hidden">
 									<FormControl>
-										<Input {...field} type="email" />
+										<Input {...field} type="text" />
 									</FormControl>
 								</FormItem>
 							)}

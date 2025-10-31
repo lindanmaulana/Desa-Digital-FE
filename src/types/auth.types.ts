@@ -38,11 +38,19 @@ export interface VerifyAccountRequest {
 }
 
 export interface ResendOtpRequest {
-  email: string;
+  token: string;
 }
 
 export interface ResendOtpResponse {
   email: string;
   otp_last_sent_at: Date;
   otp_expiry_seconds: number
+}
+
+export interface ResendVerifyAccountRequest {
+  email: string;
+}
+
+export interface ResendVerifyAccountResponse {
+  verify_token_last_sen_at: Date | null
 }

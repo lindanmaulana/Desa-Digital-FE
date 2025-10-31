@@ -8,17 +8,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useGetUsermail } from '../../hooks/useGetUserMail';
+import { useGetVerifyToken } from '../../hooks/useGetVerifyToken';
 import { VerifyAccountAuthForm } from './form/VerifyAccountForm';
 
 export const VerifyAccount = () => {
-	const emailUser = useGetUsermail();
+	const tokenUser = useGetVerifyToken();
 	const router = useNavigate();
 
 	const form = useForm<TypeVerifyAccountSchema>({
 		resolver: zodResolver(AuthSchema.VERIFYACCOUNTSCHEMA),
 		defaultValues: {
-			email: emailUser ?? '',
+			token: tokenUser ?? '',
 			otp_code: '',
 		},
 	});
@@ -41,8 +41,11 @@ export const VerifyAccount = () => {
 
 			onError: (err: unknown) => {
 				const errorMessage = errorHandler(err);
+				console.log({err, errorMessage})
 
 				customToastError(errorMessage);
+
+				if (errorMessage.endsWith("jwt expired")) router("/auth/request-new-link")
 			},
 		});
 	});
