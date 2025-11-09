@@ -1,8 +1,9 @@
 import axios from 'axios';
-import config from './config';
+import { APIBASEURL } from './config';
 
 const api = axios.create({
-  baseURL: config.APIBASEURL,
+  baseURL: APIBASEURL,
+  withCredentials: true
 });
 
 const setContentType = (data: unknown) => {

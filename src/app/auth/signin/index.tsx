@@ -1,16 +1,16 @@
 import { customToastError, customToastSuccess } from '@/components/custom-toast';
 import { errorHandler } from '@/lib/helpers/error-handler.helper';
 import { authKeys } from '@/lib/queries/auth';
-import { signinAuthService } from '@/lib/services';
 import { useSessionStore } from '@/lib/stores/useSessionStore';
-import type { SigninAuthRequest } from '@/types/auth.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { AuthSchema, type TypeSigninSchema } from '../../../lib/validation/auth.validation';
 import { ContainerAuth } from '../components/AuthContainer';
-import { SigninForm } from './components/SigninForm';
+import { SigninForm } from './components/form/SigninForm';
+import { authService } from '@/lib/services/auth/auth.service';
+import type { SigninAuthRequest } from '@/types/auth/auth.types';
 
 const SigninAuthPage = () => {
 	const router = useNavigate();
@@ -28,7 +28,7 @@ const SigninAuthPage = () => {
 
 	const { mutate, isPending } = useMutation({
 		mutationKey: authKeys.signin(),
-		mutationFn: (req: SigninAuthRequest) => signinAuthService(req),
+		mutationFn: (req: SigninAuthRequest) => authService.signin(req),
 	});
 
 	const handleForm = handleSubmit((value: SigninAuthRequest) => {

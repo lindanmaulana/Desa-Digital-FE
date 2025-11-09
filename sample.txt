@@ -1,0 +1,104 @@
+	<SidebarProvider className="p-5">
+			<AppSidebar />
+			<main className="w-full">
+				<div className="relative h-[116px] shrink-0">
+					<div className="w-full flex items-center gap-4 bg-white">
+						<div className='w-full flex items-center gap-4'>
+							<SidebarTrigger />
+							<div className="w-full h-full">
+								<InputGroup className="w-full rounded-full py-6">
+									<InputGroupInput placeholder="Cari nama penduduk, pengajuan, events, dll" />
+									<InputGroupAddon>
+										<SearchIcon />
+									</InputGroupAddon>
+								</InputGroup>
+							</div>
+						</div>
+
+						<div className='flex items-center gap-2'>
+							<Button variant={"ghost"} className='p-6 border border-transparent hover:border-village-secondary hover:bg-transparent cursor-pointer'><Bell className='size-6 text-village-secondary' /></Button>
+							<Button variant={"ghost"} className='p-6 border border-transparent hover:border-village-secondary hover:bg-transparent cursor-pointer'><Settings className='size-6 text-village-secondary' /></Button>
+						</div>
+					</div>
+				</div>
+				<Outlet />
+			</main>
+		</SidebarProvider>
+
+
+sidebar/index.tsx
+import { Sidebar, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
+import { useLocation } from 'react-router';
+import { ContentAppSidebar } from './ContentAppSidebar';
+
+
+export const AppSidebar = () => {
+	const location = useLocation()
+
+	console.log(location)
+	return (
+		<Sidebar className="px-4 py-6">
+			<SidebarHeader>
+				<div className="flex items-center gap-2">
+					<img src="/images/logos/logo-icon.svg" className="size-8" />
+					<h2 className="text-2xl font-semibold">DesaKita.</h2>
+				</div>
+			</SidebarHeader>
+			<ContentAppSidebar pathname={location.pathname} />
+			<SidebarFooter />
+		</Sidebar>
+	);
+};
+
+
+sidebar/contentApp.tsx
+import { SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { Link } from 'react-router';
+
+interface PathUrl {
+	id: number;
+	title: string;
+	url: string;
+	icon: string;
+	iconActive: string;
+}
+const items: PathUrl[] = [
+	{
+		id: 1,
+		title: 'Dashboard',
+		url: '/dashboard',
+		icon: 'chart-square-secondary-green.svg',
+		iconActive: 'chart-square-dark-green.svg',
+	},
+];
+
+interface ContentAppSidebarProps {
+	pathname: string
+}
+
+export const ContentAppSidebar = ({pathname}: ContentAppSidebarProps) => {
+	return (
+		<SidebarContent>
+			<SidebarGroup>
+				<SidebarGroupLabel className="text-sm text-village-secondary font-normal">Main Menu</SidebarGroupLabel>
+				<SidebarGroupContent>
+					<SidebarMenu>
+						{items.map((item) => {
+							const isActive = item.url === pathname
+
+							return (
+							<SidebarMenuItem key={item.id}>
+								<SidebarMenuButton asChild>
+									<Link to={item.url} className={`${isActive && "bg-village-forshadow"} w-full h-full p-4 text-[16px] font-medium rounded-xl`}>
+										<img src={`/images/icons/${isActive ? item.iconActive : item.icon}`} className='size-6 object-contain' />
+										<span className={`${isActive ? "text-village-dark-green": "text-village-secondary"}`}>{item.title}</span>
+									</Link>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						)})}
+					</SidebarMenu>
+				</SidebarGroupContent>
+			</SidebarGroup>
+		</SidebarContent>
+	);
+};

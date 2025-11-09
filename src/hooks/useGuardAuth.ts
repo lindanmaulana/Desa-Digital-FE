@@ -1,9 +1,11 @@
 import { useGuardAuthStore } from "@/lib/stores/useGuardAuthStore"
 
 export const useGuardAuth = () => {
-  const email = useGuardAuthStore((state) => state.email)
-  const isEmailSubmit = useGuardAuthStore((state) => state.emailSubmitted)
-  const isOtpVerified = useGuardAuthStore((state) => state.otpVerified)
+  const isEmailSubmit = useGuardAuthStore((state) => state.auth.emailSubmitted)
+  const isOtpVerified = useGuardAuthStore((state) => state.auth.otpVerified)
+  const email = useGuardAuthStore((state) => state.auth.email)
+  const handleSetEmailSubmitted = useGuardAuthStore((state) => state.setEmailSubmitted)
+  const handleSetOtpVerified = useGuardAuthStore((state) => state.setOtpVerified)
 
-  return {email, isEmailSubmit, isOtpVerified}
+  return {isEmailSubmit, isOtpVerified, email, handleSetEmailSubmitted, handleSetOtpVerified}
 }

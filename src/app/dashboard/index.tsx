@@ -1,7 +1,7 @@
 const DashboardPage = () => {
 	return (
-		<div>
-			<h2>Dashboard</h2>
+		<div className="p-6">
+			<h2 className="text-2xl font-semibold">Desa Statistics</h2>
 		</div>
 	)
 }

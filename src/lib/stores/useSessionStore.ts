@@ -1,4 +1,4 @@
-import type { Session } from '@/types/auth.types';
+import type { Session } from '@/types/auth/auth.types';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -9,6 +9,7 @@ interface State {
 
 interface Action {
   setSessionUser: (req: Session) => void;
+  resetSessionUser: () => void
 }
 
 type UserStoreConfig = State & Action;
@@ -18,6 +19,7 @@ export const useSessionStore = create<UserStoreConfig>()(
     (set) => ({
       session: null,
       setSessionUser: (req: Session) => set({ session: req }),
+      resetSessionUser: () => set({session: null})
     }),
     {
       name: 'session-user',

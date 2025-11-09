@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -103,9 +104,21 @@
   font-display: swap;
 }
 
+.hide-scrollbar {
+    overflow: auto; /* Allows scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
 @theme {
   --color-village-dark-green: rgb(52 97 58 / var(--tw-bg-opacity, 1));
   --color-village-secondary: rgb(90 122 126 / var(--tw-text-opacity, 1));
+  --color-village-forshadow: rgb(241 250 230 / var(--tw-bg-opacity, 1));
+  --color-village-blue: rgb(0 92 170 / var(--tw-text-opacity, 1));
 }
 
 @layer base {
@@ -116,7 +129,7 @@
   body {
     font-family: var(--font-lexend-deca);
 
-    @apply bg-[#f2f9f6] text-[#001b1a];
+    @apply bg-[#F2F9F6] text-[#001b1a];
   }
 }
 
