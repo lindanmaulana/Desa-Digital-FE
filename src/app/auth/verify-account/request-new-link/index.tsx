@@ -1,7 +1,7 @@
 import { customToastError, customToastSuccess } from '@/components/custom-toast';
 import { errorHandler } from '@/lib/helpers';
 import { authKeys } from '@/lib/queries/auth';
-import { verifyAccountService } from '@/lib/services/auth/verify-account.service';
+import { verifyAccountService } from '@/lib/services/auth/verifyAccount.service';
 import { AuthSchema, type TypeResendTokenVerifyTokenSchema } from '@/lib/validation/auth.validation';
 import type { ResendTokenVerifyAccountRequest } from '@/types/auth.types';
 import { zodResolver } from '@hookform/resolvers/zod';

@@ -18,7 +18,7 @@ const items: PathUrl[] = [
 	{
 		id: 2,
 		title: "Kepala Rumah",
-		url: "/head-of-family",
+		url: "/head-of-family?page=1&limit=5",
 		icon: "crown-dark-green.svg",
 		iconActive: "crown-secondary-green.svg"
 	}

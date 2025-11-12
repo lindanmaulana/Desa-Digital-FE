@@ -1,6 +1,6 @@
 import type { UserRole } from "@/types/users/user.types";
 
-export const displayRoleHandler = (role?: UserRole): string => {
+export const getDisplayRoleHandler = (role?: UserRole): string => {
   let userRole = "Unknown"
 
   console.log({role})

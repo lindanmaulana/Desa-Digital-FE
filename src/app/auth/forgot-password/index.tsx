@@ -9,12 +9,12 @@ import { ContainerAuth } from '../components/AuthContainer';
 import { ForgotPasswordForm } from './components/form/ForgotPasswordForm';
 import { useGuardAuth } from '@/hooks';
 import { useNavigate } from 'react-router';
-import { forgotPasswordService } from '@/lib/services/auth/forgot-password.service';
+import { forgotPasswordService } from '@/lib/services/auth/forgotPassword.service';
 import type { ForgotPasswordRequest } from '@/types/auth/forgot-password.types';
 
 const ForgotPasswordAuthPage = () => {
-	const {handleSetEmailSubmitted} = useGuardAuth()
-	const router = useNavigate()
+	const { handleSetEmailSubmitted } = useGuardAuth();
+	const router = useNavigate();
 	const form = useForm<TypeForgotPasswordSchema>({
 		resolver: zodResolver(AuthSchema.FORGOTPASSWORD_SCHEMA),
 		defaultValues: {
@@ -24,27 +24,27 @@ const ForgotPasswordAuthPage = () => {
 
 	const { handleSubmit, reset } = form;
 
-	const {mutate, isPending} = useMutation({
+	const { mutate, isPending } = useMutation({
 		mutationKey: authKeys.forgot_password.index(),
-		mutationFn: (req: ForgotPasswordRequest) => forgotPasswordService.sendOtp(req)
-	})
+		mutationFn: (req: ForgotPasswordRequest) => forgotPasswordService.sendOtp(req),
+	});
 
 	const handleForm = handleSubmit((value) => {
 		mutate(value, {
 			onSuccess: (data) => {
-				customToastSuccess(data.message)
+				customToastSuccess(data.message);
 
-				reset()
-				handleSetEmailSubmitted(true, value.email)
-				router("/auth/forgot-password/verify-otp")
+				reset();
+				handleSetEmailSubmitted(true, value.email);
+				router('/auth/forgot-password/verify-otp');
 			},
 
 			onError: (err: unknown) => {
-				const errorMessage = errorHandler(err)
+				const errorMessage = errorHandler(err);
 
-				customToastError(errorMessage)
-			}
-		})
+				customToastError(errorMessage);
+			},
+		});
 	});
 
 	return (

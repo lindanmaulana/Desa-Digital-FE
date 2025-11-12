@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 interface HeadOfFamilyRowProps {
 	imageUrl: string
 	name: string
-	occupation: string
-	nik: string
+	occupation?: string
+	nik?: string
 	numbersOfFamilyMembers: number
 }
 

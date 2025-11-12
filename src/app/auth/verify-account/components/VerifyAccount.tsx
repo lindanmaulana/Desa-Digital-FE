@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useGetToken } from '../../hooks/useGetToken';
 import { VerifyAccountAuthForm } from './form/VerifyAccountForm';
-import { verifyAccountService } from '@/lib/services/auth/verify-account.service';
+import { verifyAccountService } from '@/lib/services/auth/verifyAccount.service';
 
 export const VerifyAccount = () => {
 	const tokenUser = useGetToken();

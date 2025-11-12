@@ -1,7 +1,7 @@
 import { customToastError, customToastSuccess } from '@/components/custom-toast';
 import { errorHandler } from '@/lib/helpers';
 import { authKeys } from '@/lib/queries/auth';
-import { verifyAccountService } from '@/lib/services/auth/verify-account.service';
+import { verifyAccountService } from '@/lib/services/auth/verifyAccount.service';
 import type { ResendOtpVerifyAccountRequest } from '@/types/auth.types';
 import { useMutation } from '@tanstack/react-query';
 import { ButtonResendOtp } from '../../components/ButtonResendOtp';

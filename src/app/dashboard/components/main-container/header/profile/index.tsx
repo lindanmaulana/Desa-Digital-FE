@@ -1,9 +1,9 @@
-import { displayRoleHandler } from "@/lib/helpers/display-role";
+import { IMAGEBASEURL } from "@/lib/config";
+import { getDisplayRoleHandler } from "@/lib/helpers/displayRole";
 import { profileDetailQueryOptions } from "@/lib/queries/profile/profileDetailQueryOptions";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingProfile } from "./components/LoadingProfile";
 import { LogoutProfile } from "./components/LogoutProfile";
-import { IMAGEBASEURL } from "@/lib/config";
 
 export const ProfileHeader = () => {
 	const {data, isLoading, isError} = useQuery(profileDetailQueryOptions())
@@ -15,7 +15,7 @@ export const ProfileHeader = () => {
 	if (!profileData) return <p>Data pengguna tidak ditemukan</p>
 
 	const {name, role, image} = profileData
-	const displayedRole = displayRoleHandler(role)
+	const displayedRole = getDisplayRoleHandler(role)
 
 	return (
 		<div className="shrink-0 flex items-center gap-4">

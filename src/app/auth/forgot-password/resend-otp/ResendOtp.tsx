@@ -2,7 +2,7 @@ import { customToastError, customToastSuccess } from '@/components/custom-toast'
 import { useGuardAuth } from '@/hooks';
 import { errorHandler } from '@/lib/helpers';
 import { authKeys } from '@/lib/queries/auth';
-import { forgotPasswordService } from '@/lib/services/auth/forgot-password.service';
+import { forgotPasswordService } from '@/lib/services/auth/forgotPassword.service';
 import { useMutation } from '@tanstack/react-query';
 import { ButtonResendOtp } from '../../components/ButtonResendOtp';
 import { useCountDownTimer } from '../../hooks/useCountDownTimer';

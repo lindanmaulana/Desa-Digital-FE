@@ -1,7 +1,7 @@
 import { api } from '../../axios-instance';
 import { errorHandler } from '../../helpers';
 
-export const ProfileService = {
+export const profileService = {
   getProfile: async () => {
     try {
       const response = await api.get('/auth/profile/detail');
