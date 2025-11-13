@@ -15,7 +15,7 @@ export const HeadOfFamilyList = ({ data }: HeadOfFamilyListProps) => {
 				if (!user.head_of_family) return <p>Error Data invalid</p>;
 				if (user.head_of_family.image) imageUrl = getImageUrlHandler({ path: user.head_of_family.image.path, filename: user.head_of_family.image.filename });
 
-				return <HeadOfFamilyRow key={user.id} name={user.name} imageUrl={imageUrl} nik={user.head_of_family.identity_number} numbersOfFamilyMembers={4} occupation={user.head_of_family.occupation} />;
+				return <HeadOfFamilyRow key={user.id} name={user.name} imageUrl={imageUrl} nik={user.head_of_family.identity_number} numbersOfFamilyMembers={5} occupation={user.head_of_family.occupation} />;
 			})}
 		</div>
 	);

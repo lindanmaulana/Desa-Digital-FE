@@ -17,11 +17,11 @@ const items: PathUrl[] = [
 	},
 	{
 		id: 2,
-		title: "Kepala Rumah",
-		url: "/head-of-family?page=1&limit=5",
-		icon: "crown-dark-green.svg",
-		iconActive: "crown-secondary-green.svg"
-	}
+		title: 'Kepala Rumah',
+		url: '/head-of-family?page=1&limit=5',
+		icon: 'crown-dark-green.svg',
+		iconActive: 'crown-secondary-green.svg',
+	},
 ];
 
 interface ContentAppSidebarProps {
@@ -29,19 +29,27 @@ interface ContentAppSidebarProps {
 }
 
 export const ContentSidebar = ({ pathname }: ContentAppSidebarProps) => {
+	
+	const getActiveRoute = (route: string) => {
+		const cleanPathname = pathname.split('?')[0];
+		const cleanRoute = route.split('?')[0];
+		const exactMatchRoutes = ['/dashboard'];
+
+		if (exactMatchRoutes.includes(cleanRoute)) return cleanPathname === cleanRoute;
+
+		return cleanPathname === cleanRoute || cleanPathname.startsWith(cleanRoute + '/');
+	};
+
 	return (
-		<ul className='space-y-2'>
-			{items.map((item) => {
-				const isActive = item.url === pathname
-				return (
-					<li key={item.id}>
-						<Link to={`/dashboard${item.url}`} className={`${isActive && 'bg-village-forshadow'} w-full h-full p-4 text-[16px] font-medium rounded-xl flex items-center gap-2 hover:bg-village-forshadow`}>
-							<img src={`/images/icons/${isActive ? item.iconActive : item.icon}`} className="size-6 object-contain" />
-							<span className={`${isActive ? 'text-village-dark-green' : 'text-village-secondary'} hover:text-village-dark-green`}>{item.title}</span>
-						</Link>
-					</li>
-				);
-			})}
+		<ul className="space-y-2">
+			{items.map((item) => (
+				<li key={item.id}>
+					<Link to={`/dashboard${item.url}`} className={`${getActiveRoute(`/dashboard${item.url}`) && 'bg-village-forshadow'} w-full h-full p-4 text-[16px] font-medium rounded-xl flex items-center gap-2 hover:bg-village-forshadow`}>
+						<img src={`/images/icons/${getActiveRoute(`/dashboard${item.url}`) ? item.iconActive : item.icon}`} className="size-6 object-contain" />
+						<span className={`${getActiveRoute(`/dashboard${item.url}`) ? 'text-village-dark-green' : 'text-village-secondary'} hover:text-village-dark-green`}>{item.title}</span>
+					</Link>
+				</li>
+			))}
 			<li></li>
 		</ul>
 	);
