@@ -14,7 +14,19 @@ export interface HeadOfFamily {
   marital_status: Marital;
 
   image: Image
-  
+
   created_at: Date;
   updated_at: Date;
+}
+
+
+export interface CreateHeadOfFamilyRequest {
+  name: string
+  email: string
+  identity_number?: string
+  phone_number?: string
+  occupation?: string
+  date_of_birth: string
+  gender: string
+  marital_status: string
 }

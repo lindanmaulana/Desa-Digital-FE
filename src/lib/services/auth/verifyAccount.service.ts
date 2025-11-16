@@ -2,10 +2,10 @@ import { api } from '@/lib/axios-instance';
 import { errorHandler } from '@/lib/helpers';
 import type { ResendOtpVerifyAccountRequest, ResendOtpVerifyAccountResponse, ResendTokenVerifyAccountRequest, ResendTokenVerifyAccountResponse, VerifyAccountRequest } from '@/types/auth/verify-account.types';
 import type { Response } from '@/types/response.types';
-import type { UserResponse } from '@/types/users/user.types';
+import type { User } from '@/types/users/user.types';
 
 export const verifyAccountService = {
-  verify: async (req: VerifyAccountRequest): Promise<Response<UserResponse>> => {
+  verify: async (req: VerifyAccountRequest): Promise<Response<User>> => {
     try {
       const response = await api.post('/auth/verify-account/verify', req);
 

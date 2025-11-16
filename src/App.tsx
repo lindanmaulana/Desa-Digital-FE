@@ -21,6 +21,7 @@ import { TokenGuard } from './guard/TokenGuard';
 import { useGuardAuth } from './hooks/useGuardAuth';
 import VerifyAccountAuthLayout from './app/auth/verify-account/layout';
 import HeadOfFamilyPage from './app/dashboard/head-of-family';
+import CreateHeadOfFamilyPage from './app/dashboard/head-of-family/create';
 
 function App() {
 	const [client] = useState(
@@ -70,7 +71,10 @@ function App() {
 					<Route element={<DashboardGuard />}>
 						<Route path="/dashboard/*" element={<DashboardLayout />}>
 							<Route index element={<DashboardPage />} />
-							<Route path='head-of-family' element={<HeadOfFamilyPage />} />
+							<Route path='head-of-family'>
+								<Route index element={<HeadOfFamilyPage />} />
+								<Route path='create' element={<CreateHeadOfFamilyPage />} />
+							</Route>
 						</Route>
 					</Route>
 				</Routes>

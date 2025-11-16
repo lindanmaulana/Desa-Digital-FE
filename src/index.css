@@ -119,6 +119,7 @@
   --color-village-secondary: rgb(90 122 126 / var(--tw-text-opacity, 1));
   --color-village-forshadow: rgb(241 250 230 / var(--tw-bg-opacity, 1));
   --color-village-blue: rgb(0 92 170 / var(--tw-text-opacity, 1));
+  --color-village-red: rgb(255 80 112 / var(--tw-bg-opacity, 1));
 }
 
 @layer base {
