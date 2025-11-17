@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router';
 import { HeadOfFamilyList } from './HeadOfFamilyList';
 import { useMemo } from 'react';
 import { DataNotfound } from '../DataNotFound';
+import { RowHeadOfFamilySkeleton } from '../skeleton/RowHeadOfFamilySkeleton';
 
 export const HeadOfFamilyTable = () => {
 	const [searchParams] = useSearchParams();
@@ -11,10 +12,11 @@ export const HeadOfFamilyTable = () => {
 	const queryOptions = useMemo(() => headOfFamilyListOptions(searchParams.toString()), [searchParams])
 	const { data, isLoading, isError } = useQuery(queryOptions);
 
-	if (isLoading) return <p>Loading Please waitt...</p>;
+	if (isLoading) return <RowHeadOfFamilySkeleton />;
 	if (isError) return <p>Error</p>;
 
 	const headOfFamilyData = data.data;
+	const headOfFamilyPagination = data.pagination
 	const isKeywordSearching = searchParams.get("keyword")
 
 	if (headOfFamilyData.length <= 0) {
@@ -23,5 +25,5 @@ export const HeadOfFamilyTable = () => {
 		return <DataNotfound message='Data tidak ditemukan.' />
 	}
 
-	return <HeadOfFamilyList data={headOfFamilyData} />;
+	return <HeadOfFamilyList data={headOfFamilyData} pagination={headOfFamilyPagination} />;
 };

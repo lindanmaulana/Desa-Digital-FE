@@ -9,7 +9,7 @@ import type { AuthFormSubmissingProps } from '@/types/auth/auth.types';
 import { BriefcaseBusiness, CalendarDays, Keyboard, Loader, Mail, Mars, Phone, User, User2, Users, Venus } from 'lucide-react';
 import { Link } from 'react-router';
 
-export const CreateHeadOfFamilyForm = (props: AuthFormSubmissingProps<TypeCreateHeadOfFamilySchema>) => {
+export const CreateForm = (props: AuthFormSubmissingProps<TypeCreateHeadOfFamilySchema>) => {
 	const { formMethods, handleForm, isPending } = props;
 
 	return (
@@ -108,14 +108,14 @@ export const CreateHeadOfFamilyForm = (props: AuthFormSubmissingProps<TypeCreate
 									<FormControl>
 										<div className="space-y-1">
 											<RadioGroup onValueChange={(value) => field.onChange(value)} className="grid grid-cols-2">
-												<Label htmlFor="MALE" className={cn(isMale && 'ring-[0.5px] border-[1.5px] border-village-dark-green/80', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
+												<Label htmlFor="MALE" className={cn(isMale ? 'ring-[0.5px] border-[1.5px] border-village-dark-green/80' : 'border', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
 													<div className="flex items-center gap-2">
 														<RadioGroupItem id="MALE" value="MALE" />
 														<span>Pria</span>
 													</div>
 													<Mars className={cn(isMale && 'text-village-dark-green')} />
 												</Label>
-												<Label htmlFor="FEMALE" className={cn(isFemale && 'ring-[0.5px] border-[1.5px] border-village-dark-green/80', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
+												<Label htmlFor="FEMALE" className={cn(isFemale ? 'ring-[0.5px] border-[1.5px] border-village-dark-green/80' : 'border', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
 													<div className="flex items-center gap-2">
 														<RadioGroupItem id="FEMALE" value="FEMALE" />
 														<span>Wanita</span>
@@ -143,14 +143,14 @@ export const CreateHeadOfFamilyForm = (props: AuthFormSubmissingProps<TypeCreate
 									<FormControl>
 										<div className="space-y-1">
 											<RadioGroup onValueChange={(value) => field.onChange(value)} className="grid grid-cols-2">
-												<Label htmlFor="SINGLE" className={cn(isSingle && 'ring-[0.5px] border-[1.5px] border-village-dark-green/80', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
+												<Label htmlFor="SINGLE" className={cn(isSingle ? 'ring-[0.5px] border-[1.5px] border-village-dark-green/80' : 'border', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
 													<div className="flex items-center gap-2">
 														<RadioGroupItem className="" id="SINGLE" value="SINGLE" />
 														<span>Belum Menikah</span>
 													</div>
 													<User className={cn(isSingle && 'text-village-dark-green')} />
 												</Label>
-												<Label htmlFor="MARRIED" className={cn(isMarried && 'ring-[0.5px] border-[1.5px] border-village-dark-green/80', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
+												<Label htmlFor="MARRIED" className={cn(isMarried ? 'ring-[0.5px] border-[1.5px] border-village-dark-green/80' : 'border', 'flex items-center justify-between cursor-pointer rounded-xl p-4')}>
 													<div className="flex items-center gap-2">
 														<RadioGroupItem id="MARRIED" value="MARRIED" />
 														<span>Sudah Menikah</span>

@@ -22,6 +22,7 @@ export const useToolbar = () => {
 
     router(`${location.pathname}?${url.toString()}`);
   }, 1000);
+  
   const handleSearchFilter = useCallback((e: ChangeEvent<HTMLInputElement>) => setSearchDebounce(e.target.value), [setSearchDebounce]);
 
   const handleLimitFilter = useCallback(
@@ -42,5 +43,20 @@ export const useToolbar = () => {
     [location.pathname, router, searchParams]
   );
 
-  return { handleSearchFilter, handleLimitFilter };
+  const handleSortFilter = useCallback((val: string) => {
+    const url = new URLSearchParams(searchParams.toString());
+
+    switch (val) {
+      case 'example':
+        url.delete('sort');
+        break;
+      default:
+        url.set('sort', val);
+        break;
+    }
+
+    router(`${location.pathname}?${url.toString()}`);
+  }, [location.pathname, router, searchParams]);
+
+  return { handleSearchFilter, handleLimitFilter, handleSortFilter };
 };

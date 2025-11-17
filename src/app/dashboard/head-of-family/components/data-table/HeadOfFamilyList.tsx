@@ -1,14 +1,17 @@
 import { getImageUrlHandler } from '@/lib/helpers/getImageUrl';
-import type { User } from '@/types/users/user.types';
+import type { UserResponse } from '@/types/users/user.types';
+import { PageFilter } from '../list-toolbar/PageFilter';
 import { HeadOfFamilyRow } from './HeadOfFamilyRow';
+import type { IPagination } from '@/types/response.types';
 
 interface HeadOfFamilyListProps {
-	data: User[];
+	data: UserResponse[];
+	pagination: IPagination
 }
 
-export const HeadOfFamilyList = ({ data }: HeadOfFamilyListProps) => {
+export const HeadOfFamilyList = ({ data, pagination }: HeadOfFamilyListProps) => {
 	return (
-		<div className="space-y-4">
+		<div className="relative space-y-4">
 			{data.map((user) => {
 				let imageUrl = '/images/default/profile.png';
 
@@ -17,6 +20,8 @@ export const HeadOfFamilyList = ({ data }: HeadOfFamilyListProps) => {
 
 				return <HeadOfFamilyRow key={user.id} name={user.name} imageUrl={imageUrl} nik={user.head_of_family.identity_number} numbersOfFamilyMembers={5} occupation={user.head_of_family.occupation} />;
 			})}
+
+			<PageFilter pagination={pagination} />
 		</div>
 	);
 };

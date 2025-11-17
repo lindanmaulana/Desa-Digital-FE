@@ -4,7 +4,7 @@ export type UserRole = "ADMIN" | "STAFF" | "HEAD_OF_FAMILY" | "RESIDENT"
 export const VALID_GENDER = ["MALE", "FEMALE"] as const
 export const VALID_MARITAL = ["MARRIED", "SINGLE"] as const
 
-export interface User {
+export interface UserResponse {
   id: string;
   name: string;
   email: string;

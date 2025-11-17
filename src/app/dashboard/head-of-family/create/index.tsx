@@ -1,14 +1,14 @@
 import { customToastError, customToastSuccess } from '@/components/custom-toast';
 import { errorHandler } from '@/lib/helpers';
 import { headOfFamilyKeys } from '@/lib/queries/head-of-family/queryKeys';
+import { AppRoutes } from '@/lib/route';
 import { headOfFamilyService } from '@/lib/services/head-of-family/headOfFamily.service';
 import { HeadOfFamilySchema, type TypeCreateHeadOfFamilySchema } from '@/lib/validation/headOfFamily.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { CreateHeadOfFamilyForm } from './components/CreateHeadOfFamilyForm';
 import { useNavigate } from 'react-router';
-import { AppRoutes } from '@/lib/route';
+import { CreateForm } from './components/form/CreateForm';
 
 
 const CreateHeadOfFamilyPage = () => {
@@ -23,8 +23,6 @@ const CreateHeadOfFamilyPage = () => {
 			phone_number: "",
 			occupation: "",
 			date_of_birth: "",
-			gender: 'MALE',
-			marital_status: 'SINGLE',
 		},
 	});
 
@@ -60,7 +58,7 @@ const CreateHeadOfFamilyPage = () => {
 			</div>
 
 			<div className="bg-white p-4 rounded-xl">
-				<CreateHeadOfFamilyForm formMethods={form} handleForm={handleForm} isPending={isPending}  />
+				<CreateForm formMethods={form} handleForm={handleForm} isPending={isPending}  />
 			</div>
 		</div>
 	);

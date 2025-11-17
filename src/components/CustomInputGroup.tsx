@@ -20,7 +20,7 @@ export const CustomInputGroup = <TFielsValues extends FieldValues = FieldValues>
 	const body = error && String(error.message ?? '');
 
 	return (
-		<InputGroup key={formMessageId} className={cn(body ? "border !border-village-red" : "border-none", "h-14 ring-village-dark-green rounded-2xl")}>
+		<InputGroup key={formMessageId} className={cn(body && "!border-village-red", "border h-14 ring-village-dark-green rounded-2xl")}>
 			<InputGroupInput {...field} type={type} placeholder={placeholder} className={cn(body ? "placeholder:text-village-red" : "placeholder:text-village-secondary","bg-transparent !text-base placeholder:text-base  placeholder:font-medium")} minLength={minLength} maxLength={maxLength} />
 			<InputGroupAddon>
 				<props.icon className={cn((field.value && !body) && 'text-village-dark-green', body && "text-village-red", 'size-6')} />
